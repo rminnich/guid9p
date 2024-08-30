@@ -1,0 +1,114 @@
+syntax = "proto3";
+
+package ninep;
+
+import "google/protobuf/timestamp.proto";
+
+// FileMode represents the permissions for a file or directory.
+message FileMode {
+  uint32 mode = 1;
+}
+
+// Stat represents the file status information.
+message Stat {
+  string name = 1;
+  int64 length = 2;
+  FileMode mode = 3;
+  google.protobuf.Timestamp mtime = 4;
+  google.protobuf.Timestamp atime = 5;
+  string guid = 6;
+  string uid = 7;
+  string gid = 8;
+  string muid = 9;
+}
+
+// WalkRequest and WalkResponse messages.
+message WalkRequest {
+  string guid = 1;
+  string newGuid = 2;
+  repeated string names = 3;
+}
+
+message WalkResponse {
+  repeated string guids = 1;
+}
+
+// OpenRequest and OpenResponse messages.
+message OpenRequest {
+  string guid = 1;
+  uint32 mode = 2;
+}
+
+message OpenResponse {
+  string guid = 1;
+}
+
+// ReadRequest and ReadResponse messages.
+message ReadRequest {
+  string guid = 1;
+  int64 offset = 2;
+  uint32 count = 3;
+}
+
+message ReadResponse {
+  bytes data = 1;
+}
+
+// WriteRequest and WriteResponse messages.
+message WriteRequest {
+  string guid = 1;
+  int64 offset = 2;
+  bytes data = 3;
+}
+
+message WriteResponse {
+  uint32 written = 1;
+}
+
+// CreateRequest and CreateResponse messages.
+message CreateRequest {
+  string guid = 1;
+  string name = 2;
+  FileMode perm = 3;
+  uint32 mode = 4;
+}
+
+message CreateResponse {
+  string guid = 1;
+}
+
+// StatRequest and StatResponse messages.
+message StatRequest {
+  string guid = 1;
+}
+
+message StatResponse {
+  Stat stat = 1;
+}
+
+// ClunkRequest and ClunkResponse messages.
+message ClunkRequest {
+  string guid = 1;
+}
+
+message ClunkResponse {}
+
+// FlushRequest and FlushResponse messages.
+message FlushRequest {
+  string tag = 1;
+}
+
+message FlushResponse {}
+
+// Define the gRPC service.
+service NinePService {
+  rpc Walk(WalkRequest) returns (WalkResponse);
+  rpc Open(OpenRequest) returns (OpenResponse);
+  rpc Read(ReadRequest) returns (ReadResponse);
+  rpc Write(WriteRequest) returns (WriteResponse);
+  rpc Create(CreateRequest) returns (CreateResponse);
+  rpc Stat(StatRequest) returns (StatResponse);
+  rpc Clunk(ClunkRequest) returns (ClunkResponse);
+  rpc Flush(FlushRequest) returns (FlushResponse);
+}
+
