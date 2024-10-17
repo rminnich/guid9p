@@ -5,7 +5,7 @@ import (
 	"net"
 	"testing"
 
-	pb "path/to/generated/ninep" // Adjust the import path for generated protobuf files.
+	pb "github.com/rminnich/guid9p/generated/proto/ninep"
 
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
