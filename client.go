@@ -5,8 +5,9 @@ import (
 	"log"
 	"time"
 
+	pb "github.com/rminnich/guid9p/generated/proto/ninep"
+
 	"google.golang.org/grpc"
-	pb "guid9p/generated/proto/generated"
 )
 
 func smain() {
