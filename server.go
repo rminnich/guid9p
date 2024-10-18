@@ -5,6 +5,7 @@ import (
 	"log"
 	"net"
 
+	pb "github.com/rminnich/guid9p/generated/proto/ninep"
 	"github.com/google/uuid"
 	"google.golang.org/grpc"
 )
